@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($timeout, webDevTec, toastr) {
+  function MainController($timeout, webDevTec, toastr, _) {
     var vm = this;
 
     vm.awesomeThings = [];
@@ -39,7 +39,14 @@
 
     //this function triggered when action clicked on directives
     function actionClicked(item){
-      activate();
+      vm.awesomeThings = _.remove(vm.awesomeThings, function(n) {
+        if(n.title == item.title){
+          return;
+        }else{
+          return n;
+        }
+      });      
+      
     }
   }
 })();

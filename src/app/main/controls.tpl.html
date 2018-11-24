@@ -1,11 +1,12 @@
 <div class="row">
-  <div class="col-sm-6 col-md-4" ng-repeat="awesomeThing in tasks | orderBy:'rank'" ng-click="vm.clickFunction(awesomeThing)">
-    <div class="thumbnail">
+  <div class="col-sm-6 col-md-4" ng-repeat="awesomeThing in tasks | orderBy:'rank'">
+    <div class="thumbnail" style="height: 210px;">
       <img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">
       <div class="caption">
         <h3>{{ awesomeThing.title }}</h3>
         <p>{{ awesomeThing.description }}</p>
         <p><a ng-href="{{awesomeThing.url}}">{{ awesomeThing.url }}</a></p>
+        <button class="btn btn-primary p-0 pull-right" ng-click="vm.clickFunction(awesomeThing)">Remove</button>
       </div>
     </div>
   </div>
