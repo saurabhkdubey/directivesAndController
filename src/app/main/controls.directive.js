@@ -22,6 +22,7 @@
 
   function ControlsDirectiveCtrl($scope) {
       var vm = this;
+      console.log(!$scope.tasks);
       vm.clickFunction= clickFunction;
       function clickFunction(item){
           console.log('hello');
