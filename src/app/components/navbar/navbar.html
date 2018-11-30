@@ -2,20 +2,24 @@
   <div class="container-fluid">
     <div class="navbar-header">
       <a class="navbar-brand" href="https://github.com/Isaurabhdubey">
-        <span class="glyphicon glyphicon-home"></span> Saurabh Kumar
+        <!-- <span class="glyphicon glyphicon-home"></span> Saurabh Kumar -->
+        <i class="fa fa-home" aria-hidden="true"> Saurabh Kumar</i>
       </a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
       <ul class="nav navbar-nav">
         <!-- <li ui-sref-active="active"><a ui-sref="home">Home</a></li>-->
-        <li ui-sref-active="active"><a ui-sref="home.about">About</a></li>
-        <li ui-sref-active="active"><a ui-sref="home.contact">Contact</a></li>
+        <li ui-sref-active="active" ng-repeat="item in vm.data"><a ui-sref="{{item.state}}">{{item.name}}</a></li>
+        <!-- <li ui-sref-active="active"><a ui-sref="home.contact">Contact</a></li> -->
       </ul>
-
-      <ul class="nav navbar-nav navbar-right acme-navbar-text">
-        <li>Application was created {{ vm.relativeDate }}.</li>
-      </ul>
+      <!-- <a class="navbar-brand pull-right" href="https://github.com/Isaurabhdubey">
+         <span class="glyphicon glyphicon-home"></span> Saurabh Kumar
+        <i class="fa fa-sign-out" aria-hidden="true"> Logout</i>
+      </a> -->
+      <div class="navbar-brand pull-right">
+        <button ng-click="vm.click()">Logout</button>
+      </div>
     </div>
   </div>
 </nav>
