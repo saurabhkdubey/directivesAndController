@@ -1,4 +1,4 @@
-(function() {
+(function () {
   'use strict';
 
   angular
@@ -19,7 +19,7 @@
 
     function activate() {
       getWebDevTec();
-      $timeout(function() {
+      $timeout(function () {
         vm.classAnimation = 'rubberBand';
       }, 4000);
     }
@@ -32,21 +32,21 @@
     function getWebDevTec() {
       vm.awesomeThings = webDevTec.getTec();
 
-      angular.forEach(vm.awesomeThings, function(awesomeThing) {
+      angular.forEach(vm.awesomeThings, function (awesomeThing) {
         awesomeThing.rank = Math.random();
       });
     }
 
     //this function triggered when action clicked on directives
-    function actionClicked(item){
-      vm.awesomeThings = _.remove(vm.awesomeThings, function(n) {
-        if(n.title == item.title){
+    function actionClicked(item) {
+      vm.awesomeThings = _.remove(vm.awesomeThings, function (n) {
+        if (n.title == item.title) {
           return;
-        }else{
+        } else {
           return n;
         }
-      });      
-      
+      });
+
     }
   }
 })();
