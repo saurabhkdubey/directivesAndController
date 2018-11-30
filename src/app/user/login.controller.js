@@ -7,6 +7,7 @@
 
     function Login($state){
         var vm = this;
+        vm.dataLoading = false;
         vm.login = login;
 
         function login(){
