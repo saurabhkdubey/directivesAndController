@@ -8,6 +8,10 @@
         console.log("header");
         var vm = this;
         vm.data = [{
+            name:"portfolio",
+            icon:'document',
+            state:"home.portfolio"
+        },{
             name:"about",
             icon:'home',
             state:"home.about"

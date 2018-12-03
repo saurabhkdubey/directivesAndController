@@ -15,6 +15,7 @@
     'textAngular',
     'user',
     'home',
+    'home.welcome',
     'home.about',
     'home.contact'
   ])

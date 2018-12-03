@@ -19,6 +19,19 @@
             controller: 'Login as vm'
           }
         }
+      })
+      .state('register', {
+        url: '/register/',
+        views: {
+          'header@': {
+            templateUrl: 'app/user/loginHeader.tpl.html',
+            controller: 'LoginHeaderCtrl as vm'
+          },
+          '@': {
+            templateUrl: 'app/user/register.tpl.html',
+            controller: 'Login as vm'
+          }
+        }
       });
     //   .state('about', {
     //     url: '/about',

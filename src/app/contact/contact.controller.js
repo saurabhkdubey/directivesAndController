@@ -1,11 +1,11 @@
-(function(){
-    'use strict';
-    
-    angular
-    .module('home.contact')
-    .controller('ContactCtrl',ContactCtrl);
+(function () {
+  'use strict';
 
-    function ContactCtrl(){
-        console.log('hello');
-    }
+  angular
+    .module('home.contact')
+    .controller('ContactCtrl', ContactCtrl);
+
+  function ContactCtrl() {
+    console.log('hello');
+  }
 })();
