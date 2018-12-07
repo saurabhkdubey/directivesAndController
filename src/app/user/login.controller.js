@@ -5,43 +5,35 @@
     .module('user')
     .controller('Login',Login);
 
-    function Login($state, storageService, _){
+    function Login($state, storageService, _, toastr){
         var vm = this;
         vm.dataLoading = false;
         vm.login = login;
         vm.submit = submit;
         activate();
         function activate(){
-            storageService.getItem().then((response, error)=>{
-                if(error){
-                    console.log('error while fetching data');
-                    return;
-                }
+            storageService.getItem().then(function(response){
                 vm.userService = response ? response : [];
                 console.log('vm.userService',vm.userService);
+            }, function(error){
+                console.log('error');
             })
         }
 
         function login(){
-            // if(vm.username === vm.userService.username && vm.password === vm.userService.password){
-                console.log(true);
-                _.find(vm.userService ,{username:vm.username, password: vm.password})? $state.go('home.welcome'): console.log('error');
-                // $state.go('home.welcome');
-                // return;
-            
-            console.log(vm.username);
-            console.log(vm.password);
-            // $state.go('home.welcome'); 
+                _.find(vm.userService ,{username:vm.username, password: vm.password})? (function(){
+                    $state.go('home.welcome');
+                    toastr.success('login successfully !...');
+                })(): console.log('error');
         }
 
         function submit(){
             vm.userService.push(vm.user);
-            
             console.log(vm.userService);
-            storageService.setItem(vm.userService).then((response)=>{
-                console.log('response',response);
+            storageService.setItem(vm.userService).then(function(response){
+                toastr.success('registration successfully !...');
                 $state.go('login');
-            }).catch(error=>{
+            }).catch(function(error){
                 console.log('error');
             });
             console.log(vm.user);

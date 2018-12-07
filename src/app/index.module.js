@@ -13,11 +13,13 @@
     'ui.bootstrap',
     'toastr',
     'textAngular',
+    'ui.ace',
     'user',
     'home',
     'home.welcome',
     'home.about',
-    'home.contact'
+    'home.contact',
+    'home.tutorial'
   ])
     .constant('_', window._);
 

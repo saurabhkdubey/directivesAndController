@@ -1,0 +1,111 @@
+<div class="container">
+  <table class="table table-striped table-hover table-bordered" style="table-layout:fixed;" id="tbl" border="0"
+    data-ng-if="vm.data.length > 0">
+    <thead class="" id="list-view-theader">
+      <tr class="table-column-header">
+        <th ng-if="vm.options.enableSelection" align="left" valign="top" style="width:30px;">
+          <input type="checkbox" ng-model="vm.options.isAllChecked" ng-change="toggleSelection(vm.options.isAllChecked)">
+        </th>
+        <th ng-repeat-start="column in vm.columnInfo" style="width:{{column.colSize}}" ng-if="!column.isowner">
+          <span class="tabl_header_nam" ng-if="!column.isSorting" ng-bind="column.title" title="{{column.title}}"></span>
+          <!--  <a href="javascript:void(0);" ng-if="column.isSorting" ng-click="toggleSorting(column)"> -->
+          <span class="table_header_name" ng-bind="column.title" title="{{column.title}}"></span>
+          <!--<i class="fa" ng-class="{'fa-sort' : predicate===column.id }"></i>-->
+          <!-- </a> -->
+          <!-- <div class="form-group form_margin_left15" ng-if="!isFilterDisabled && column.isFilter">
+                  <input type="text" class="form-control input_box_width width_chng" data-ng-model="search[column.id]">
+                </div> -->
+        </th>
+        <th ng-repeat-end style="width:{{column.colSize.replace('%', '') / column.owners.length}}%;" ng-if="column.isowner"
+          ng-repeat="owner in column.owners">
+          <span class="table_header_name" ng-bind="owner.displayName"></span>
+        </th>
+
+        <th ng-if="actions">
+          <a style="float:right;color:#f9be3e;text-decoration:none;" ng-click="toggleFilter();" class="fa fa-chevron-circle-down fa-lg"
+            href="javascript:void(0);" data-ng-if="vm.options.enableFilter" title="Toggle filter">
+            <!--  <a href="#"> <i class="fa fa-chevron-circle-down"></i></a> -->
+          </a>
+        </th>
+
+      </tr>
+
+      <tr class="table-column-header" ng-show="showfilter">
+        <th ng-if="vm.options.enableSelection">
+        </th>
+        <th ng-repeat-start="column in vm.columnInfo" style="width:{{column.colSize}}" ng-if="!column.isowner">
+          <div class="form-group form_margin_left15">
+            <input type="text" style="width:98%;height:25px;border:1px solid #cccccc; border-radius:4px;" data-ng-model="search[column.id]"
+              ng-if="column.isFilter">
+            <!-- class="form-control input_box_width width_chng" -->
+          </div>
+        </th>
+        <th ng-repeat-end ng-if="column.isowner" ng-repeat="owner in column.owners">
+        </th>
+        <th ng-if="actions">
+        </th>
+      </tr>
+    </thead>
+
+    <tbody id="req-list-view">
+      <!--<tr ng-if="predicate" ng-click="actionListner('rowClick', entity)" class="table_bdy_brdr" ng-repeat="(index, entity) in data | filter: search | orderBy:  predicate.on : !predicate.by">-->
+      <tr ng-click="actionListner('rowClick', entity)" class="table_bdy_brdr" ng-repeat="(index, entity) in vm.data | filter: search">
+        <td ng-if="vm.options.enableSelection">
+          <input type="checkbox" name="grid_items" class="chkDelete" ng-model="entity.checked" ng-change="itemSelectionChange(entity.checked)">
+        </td>
+        <div style="position: relative; overflow: auto;">
+          <td ng-repeat-start="column in vm.columnInfo" ng-class="{'grid_text_alignment': column.dataType =='number'}"
+            ng-if="!column.isowner">
+            <a title="{{entity[column.id]}}" href="" ng-if="column.actionNeeded && !column.popupRequired" ng-click="actionClicked('columnClicked', entity)"
+              ng-bind="entity[column.id]!==null ?entity[column.id]:''"></a>
+
+            <a href="" title="{{column.toolTip}}" ng-if="column.template" ng-click="actionClicked(column.id, entity)"
+              ng-class="column.template" ng-bind="entity[column.id]!==null ?entity[column.id]:''" ng-style="column.iconColor === true && {'color': '{{entity.iconColor}}'}"></a>
+
+            <a href="javascript:void(0);" ng-class="column.template" data-auto-close="1" ng-if="column.template && column.popupRequired"
+              ng-bind="entity[column.id]!==null ?entity[column.id]:''" data-placement="auto right" html="true"
+              data-template="pofucommon/popup.tpl.html" bs-popover trigger="hover" ng-click="column.actionNeeded && actionClicked(column.id, entity)"></a>
+
+            <span ng-if="!column.actionNeeded && !column.popupRequired" ng-bind="entity[column.id]!==null ?entity[column.id]:''"
+              title="{{entity[column.id]}}"></span>
+
+            <a href="javascript:void(0);" data-auto-close="1" ng-if="column.popupRequired" ng-bind="entity[column.id]!==null ?entity[column.id]:'Not Specified'"
+              data-placement="auto right" html="true" data-template="pofucommon/popup.tpl.html" bs-popover trigger="hover"
+              ng-click="column.actionNeeded && actionClicked('columnClicked', entity)"></a>
+
+          </td>
+          <!-- <td class="td-last" ng-if="actions">
+                  <a class="img_margin_1 btn" href="javascript:void(0);" ng-hide="isHidden(entity, action)" ng-repeat="action in actions" ng-bind-html="action.template" title="{{action.title}}" ng-click="actionClicked(action.id, entity)" ng-style="{'color': '{{entity[action.iconColor]}}'}">
+                  </a>
+                </td> -->
+          <td ng-repeat-end ng-if="column.isowner" ng-repeat="owner in column.owners">
+            <span ng-bind="entity.owners[owner.name].UserName" title="{{entity.owners[owner.name].UserName}}"></span>
+          </td>
+          <td class="td-last" style="text-align: left;">
+            <span ng-repeat="action in entityActions[entity.id] | limitTo: (vm.options.maxActionLimit || entityActions[entity.id].length)">
+              <a class="img_margin_1 btn" ng-if="!action.isPopOver" a ng-bind-html="action.template" title="{{action.title}}"
+                ng-click="actionClicked(action.id, entity)" ng-style="{'color': '{{entity[action.iconColor]}}', 'padding' : '0px 2px'}">
+              </a>
+              <span ng-click="actionClicked(action.id, entity)">
+                <a class="img_margin_1 btn" ng-if="action.isPopOver" a data-placement="{{action.popover.position || 'left'}}"
+                  data-content="{{action.popover.content}}" data-animation="am-flip-x" bs-popover ng-bind-html="action.template"
+                  data-template="{{action.popover.templateUrl}}" data-trigger="{{action.popover.trigger || 'hover'}}"
+                  auto-close="true" title="{{action.title}}" ng-style=" { 'color': '{{entity[action.iconColor]}}', 'padding' : '0px 2px'} ">
+                </a>
+              </span>
+            </span>
+            <span ng-if="vm.options.moreActionRequired && entityActions[entity.id].length> vm.options.maxActionLimit">
+              <a class="img_margin_1 btn" a data-placement="left" data-animation="am-flip-x" bs-popover data-template="{{vm.options.popoverActionTemplateUrl || 'common/directives/listView/moreActionsPopover.tpl.html'}}"
+                data-trigger="click" ng-style="{'color': '{{entity[action.iconColor]}}', 'padding' : '1px 5px'}"
+                auto-close="true"><i class="pointer fa fa-lg fa-ellipsis-v" title="More"></i></a>
+            </span>
+          </td>
+        </div>
+      </tr>
+    </tbody>
+  </table>
+  <div class="wizard_header_color criterion" data-ng-if="vm.data.length === 0">
+    <div class="shortlist_heading col-md-7  pull-right" data-ng-if="vm.options.title">NO {{vm.options.title}}</div>
+    <!-- <div class="shortlist_heading col-md-7  pull-right" data-ng-if="!vm.options.title">NO DATA</div> -->
+  </div>
+</div>

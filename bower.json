@@ -20,7 +20,10 @@
     "animate.css": "~3.4.0",
     "angular": "~1.5.3",
     "lodash": "^4.17.11",
-    "Font-Awesome": "^5.5.0"
+    "Font-Awesome": "^5.5.0",
+    "angular-xml": "2.2.1",
+    "angular-filter": "^0.5.17",
+    "angular-ui-ace": "bower"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.3"

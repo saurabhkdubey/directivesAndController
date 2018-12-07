@@ -19,6 +19,10 @@
             name: "contact",
             icon: "contact",
             state: "home.contact"
+        },{
+            name: "tutorials",
+            icon: "book",
+            state: "home.tutorial.allCandidate"
         }];
         vm.click = click;
         function click(){

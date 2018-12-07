@@ -8,7 +8,8 @@
     function storageService($window, $q) {
         var service = {
             setItem: setItem,
-            getItem: getItem
+            getItem: getItem,
+            removeItem: removeItem
         }
         return service;
 
@@ -24,6 +25,11 @@
             var user = JSON.parse($window.localStorage.getItem('user'))
             console.log('getItem',user);
             return $q.when(user);
+        }
+        function removeItem(){
+            console.log('removeItem');
+            $window.localStorage.removeItem('user');
+            return $q.when([]);
         }
     }
 })();

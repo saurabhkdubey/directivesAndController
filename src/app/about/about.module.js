@@ -3,7 +3,8 @@
 
     angular
     .module('home.about', ['home',
-        'textAngular'
+        'textAngular',
+        'ui.ace'
     ])
     .config(config);
 

@@ -10,5 +10,14 @@
     $scope.htmlcontent = $scope.orightml;
     $scope.disabled = false;
     console.log('about');
+
+    $scope.aceLoaded = function(_editor) {
+      // Options
+      _editor.setReadOnly(false);
+    };
+  
+    $scope.aceChanged = function(e) {
+      //
+    };
   }
 })();

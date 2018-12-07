@@ -1,5 +1,17 @@
+<style>
+.ace_editor { height: 200px; }
+</style>
 <div class="container">
   <p class="jumbotron text-center">
     Hi This is Saurabh Kumar.
   </p>
+  <div ui-ace="{
+    useWrapMode : true,
+    showGutter: false,
+    theme:'twilight',
+    mode: 'javascript',
+    firstLineNumber: 5,
+    onLoad: aceLoaded,
+    onChange: aceChanged
+  }"></div>
 </div>
